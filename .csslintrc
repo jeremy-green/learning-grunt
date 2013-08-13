@@ -1,0 +1,10 @@
+{
+  "star-property-hack": false,
+  "unqualified-attributes": false,
+  "font-sizes": false,
+  "outline-none": false,
+  "compatible-vendor-prefixes": false,
+  "box-sizing": false,
+  "underscore-property-hack": false,
+  "box-model": false
+}
