@@ -5,9 +5,9 @@
   "keywords": "",
   "homepage": "http://www.blah.com",
   "author": {
-    "name": "Jeremy Green",
-    "email": "green@mutatedcreativity.com",
-    "url": "http://www.mutatedcreativity.com"
+    "name": "my name",
+    "email": "email@email.com",
+    "url": "http://www.myurl.com"
   },
   "devDependencies": {
     "grunt-contrib-uglify": "~0.2.2",
