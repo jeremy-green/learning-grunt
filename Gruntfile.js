@@ -6,15 +6,22 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    /**
+     * @todo change this structure
+     */
     project: {
+      url: {
+        prod: 'http://www.google.com',
+        dev: 'http://taoti.dev/learning-grunt'
+      },
       js: {
-        full : 'main.js',
-        min : 'main.min.js',
+        full: 'main.js',
+        min: 'main.min.js',
         vendor: ['modernizr.js']
       },
       css: {
-        full : 'main.css',
-        min : 'main.min.css'
+        full: 'main.css',
+        min: 'main.min.css'
       }
     },
 
@@ -109,7 +116,7 @@ module.exports = function(grunt) {
     phantomjs: {
       options: {
         //escape the colon
-        url: 'http://fierce.dev/grunt'
+        url: '<%= project.url.dev %>'
       }
     },
 
@@ -133,15 +140,15 @@ module.exports = function(grunt) {
         formatters: [
           {
             id: 'text',
-            dest: 'css/report/csslint.txt'
+            dest: 'reports/css/csslint.txt'
           },
           {
             id: 'csslint-xml',
-            dest: 'css/report/csslint.xml'
+            dest: 'reports/css/csslint.xml'
           },
           {
             id: 'junit-xml',
-            dest: 'css/report/csslint_junit.xml'
+            dest: 'reports/css/csslint_junit.xml'
           }
         ],
       },
@@ -163,6 +170,40 @@ module.exports = function(grunt) {
           //helpers: 'spec/*Helper.js'
         }
       }
+    },
+
+
+    yslow_test: {
+      options: {
+        info: 'all',
+        format: 'plain',
+        urls: ['<%= project.url.dev %>'],
+        reports: ['reports/yslow.txt']
+      },
+      your_target: {
+        files: []
+      }
+    },
+
+
+    pagespeed: {
+      desktop: {
+          //needs to be web accessible
+          url: '<%= project.url.prod %>',
+          locale: 'en_US',
+          strategy: 'desktop',
+          threshold: 80
+      },
+      mobile: {
+          //needs to be web accessible
+          url: '<%= project.url.prod %>',
+          locale: 'en_US',
+          strategy: 'mobile',
+          threshold: 80
+      },
+      options: {
+          key: 'AIzaSyBgyrzUOZaWveuLYftmyrKRkXlzdxUU1h0',
+      }
     }
 
 
@@ -179,6 +220,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-csslint');
 
+  grunt.loadNpmTasks('grunt-yslow-test');
+  grunt.loadNpmTasks('grunt-pagespeed');
+
   // Default task.
   grunt.registerTask('default', 'watch');
   grunt.registerTask('build', [
@@ -189,6 +233,8 @@ module.exports = function(grunt) {
     'sass',
     'csslint',
     'cssmin',
+    'yslow_test',
+    //'pagespeed',
     'phantomjs'
   ]);
 

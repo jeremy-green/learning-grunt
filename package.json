@@ -2,7 +2,10 @@
   "name": "PROJECT_NAME",
   "version": "0.0.0",
   "description": "This is my description",
-  "keywords": "",
+  "keywords": [
+    "string1",
+    "string2"
+  ],
   "homepage": "http://www.blah.com",
   "author": {
     "name": "my name",
@@ -19,6 +22,8 @@
     "grunt-contrib-compass": "~0.4.1",
     "grunt-contrib-cssmin": "~0.6.1",
     "grunt-contrib-jasmine": "~0.5.1",
-    "grunt-contrib-csslint": "~0.1.2"
+    "grunt-contrib-csslint": "~0.1.2",
+    "grunt-yslow-test": "~0.1.0",
+    "grunt-pagespeed": "0.0.5"
   }
 }
