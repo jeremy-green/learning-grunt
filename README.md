@@ -1,4 +1,4 @@
-learning-grunt
+Learning Grunt
 ==============
 
 Playing with Gruntjs
