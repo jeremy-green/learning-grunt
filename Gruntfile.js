@@ -204,7 +204,25 @@ module.exports = function(grunt) {
       options: {
           key: 'AIzaSyBgyrzUOZaWveuLYftmyrKRkXlzdxUU1h0',
       }
+    },
+
+
+    grunt.initConfig({
+  pkg: grunt.file.readJSON('package.json'),
+  yuidoc: {
+    compile: {
+      name: '<%= pkg.name %>',
+      description: '<%= pkg.description %>',
+      version: '<%= pkg.version %>',
+      url: '<%= pkg.homepage %>',
+      options: {
+        paths: 'path/to/source/code/',
+        themedir: 'path/to/custom/theme/',
+        outdir: 'where/to/save/docs/'
+      }
     }
+  }
+});
 
 
   });
@@ -222,6 +240,8 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-yslow-test');
   grunt.loadNpmTasks('grunt-pagespeed');
+
+  grunt.loadNpmTasks('grunt-contrib-yuidoc');
 
   // Default task.
   grunt.registerTask('default', 'watch');
