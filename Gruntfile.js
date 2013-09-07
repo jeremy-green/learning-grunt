@@ -213,7 +213,7 @@ module.exports = function(grunt) {
         version: '<%= pkg.version %>',
         url: '<%= pkg.homepage %>',
         options: {
-          paths: '.',
+          paths: '../publication-sites/drupal/',
           //themedir: 'path/to/custom/theme/',
           outdir: 'docs/'
         }
@@ -259,6 +259,9 @@ module.exports = function(grunt) {
   //sass -v 3.3.0.alpha.149
   //compass -v 0.12.2
   grunt.registerTask('sass', 'Custom SASS task to generate sourcemaps', function () {
+    /**
+     * @todo pass in the files in the options
+     */
     var done = this.async();
     require('child_process').exec('sass --update --compass --scss --sourcemap sass/main.scss:css/main.css', function (err, stdout) {
       grunt.log.write(stdout);
