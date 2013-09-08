@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     project: {
       url: {
         prod: 'http://www.google.com',
-        dev: 'http://taoti.dev/learning-grunt'
+        dev: 'http://localhost'
       },
       js: {
         full: 'main.js',
@@ -213,7 +213,7 @@ module.exports = function(grunt) {
         version: '<%= pkg.version %>',
         url: '<%= pkg.homepage %>',
         options: {
-          paths: '../publication-sites/drupal/',
+          paths: 'path/to/code/',
           //themedir: 'path/to/custom/theme/',
           outdir: 'docs/'
         }
