@@ -2,3 +2,4 @@ node_modules
 .sass-cache
 screenshots
 .DS_Store
+private.json

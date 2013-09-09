@@ -5,6 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
+    prv: grunt.file.readJSON('private.json'),
 
     /**
      * @todo change this structure
@@ -108,7 +109,7 @@ module.exports = function(grunt) {
           'css/{,*/}*.css',
           'img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
-        tasks: ['phantomjs']
+        tasks: ['screenshot']
       }
     },
 
@@ -123,7 +124,7 @@ module.exports = function(grunt) {
     },
 
 
-    phantomjs: {
+    screenshot: {
       options: {
         //escape the colon
         url: '<%= project.url.dev %>'
@@ -212,9 +213,10 @@ module.exports = function(grunt) {
           threshold: 80
       },
       options: {
-          key: 'AIzaSyBgyrzUOZaWveuLYftmyrKRkXlzdxUU1h0',
+          key: '<%= prv.google %>',
       }
     },
+
 
     yuidoc: {
       compile: {
@@ -227,6 +229,19 @@ module.exports = function(grunt) {
           //themedir: 'path/to/custom/theme/',
           outdir: 'docs/'
         }
+      }
+    },
+
+
+    imagemin : {
+      production : {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: 'img/',
+          src: ['**/*.{png,jpg,gif}'],
+          dest: 'img/dist/'
+        }]
       }
     }
 
@@ -243,6 +258,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
 
   grunt.loadNpmTasks('grunt-yslow-test');
   grunt.loadNpmTasks('grunt-pagespeed');
@@ -259,9 +275,10 @@ module.exports = function(grunt) {
     'sass',
     'csslint',
     'cssmin',
+    'imagemin',
     'yslow_test',
     //'pagespeed',
-    'phantomjs'
+    'screenshot'
   ]);
 
   //http://net.tutsplus.com/tutorials/html-css-techniques/developing-with-sass-and-chrome-devtools/
@@ -281,7 +298,7 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask('phantomjs', 'Take screenshots of a specified URL', function () {
+  grunt.registerTask('screenshot', 'Take screenshots of a specified URL', function () {
     var url = this.options().url;
     if (url === undefined) {
       grunt.log.warn('URL option is empty.');
