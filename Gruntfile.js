@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 
     /**
      * @todo change this structure
+     * project.json?
      */
     project: {
       url: {
@@ -243,6 +244,10 @@ module.exports = function(grunt) {
           dest: 'img/dist/'
         }]
       }
+    },
+
+    specificity: {
+      src: ['css/<%= project.css.full %>']
     }
 
 
@@ -309,6 +314,23 @@ module.exports = function(grunt) {
       grunt.log.write(stdout);
       done(err);
     });
+  });
+
+  grunt.registerMultiTask('specificity', function() {
+    var specificity = require('specificity');
+    var verbose = grunt.verbose;
+    var options = this.options();
+    var path = require("path");
+    var absoluteFilePaths = options.absoluteFilePathsForFormatters || false;
+console.log(this.src());
+    for ( var rule in options ) {
+      this.filesSrc.forEach(function( filepath ) {
+        var file = grunt.file.read( filepath );
+        console.log(file);
+      });
+    }
+
+    specificity.calculate('ul#nav li.active a');
   });
 
 };
