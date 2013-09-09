@@ -113,6 +113,16 @@ module.exports = function(grunt) {
     },
 
 
+    sass: {
+      options: {
+        files: {
+          src: 'sass/main.scss',
+          dest: 'css/<%= project.css.full %>'
+        }
+      }
+    },
+
+
     phantomjs: {
       options: {
         //escape the colon
@@ -259,11 +269,13 @@ module.exports = function(grunt) {
   //sass -v 3.3.0.alpha.149
   //compass -v 0.12.2
   grunt.registerTask('sass', 'Custom SASS task to generate sourcemaps', function () {
-    /**
-     * @todo pass in the files in the options
-     */
+    var files = this.options().files;
+    if (files === undefined) {
+      grunt.log.warn('Files option is empty');
+      return false;
+    }
     var done = this.async();
-    require('child_process').exec('sass --update --compass --scss --sourcemap sass/main.scss:css/main.css', function (err, stdout) {
+    require('child_process').exec('sass --update --compass --scss --sourcemap ' + files.src + ':' + files.dest, function (err, stdout) {
       grunt.log.write(stdout);
       done(err);
     });
