@@ -1,11 +1,21 @@
 describe('Email Validation', function() {
     it('should return true if the email is valid', function() {
-        expect(handleEmail('jeremygreen1@gmail.com')).toBe(true);
+        expect(handleEmail('jeremygreen1@gmail.com')).toBeTruthy();
     });
     it('should return false if the email is not valid', function() {
-        expect(handleEmail('str@str')).toBe(false);
+        expect(handleEmail('str@str')).toBeFalsy();
     });
     it('should return false there is no email', function() {
-        expect(handleEmail()).toBe(false);
+        expect(handleEmail()).toBeFalsy();
+    });
+});
+
+describe('Random Color', function() {
+    it('should not be null', function() {
+        expect(randomColor()).not.toBeNull();
+    });
+
+    it('should return a random color', function() {
+        expect(randomColor()).toMatch(/#?[0-9A-Fa-f]{6}/g);
     });
 });

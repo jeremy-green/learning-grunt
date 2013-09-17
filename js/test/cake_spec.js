@@ -15,11 +15,30 @@ describe('Cake Validation', function() {
     expect(new CandleCollection(count)).not.toBeLessThan(count);
   });
   it('should be true when the candles are lit', function() {
-    expect(cake.lightCandles()).toBe(true);
+    expect(cake.lightCandles()).toBeTruthy();
   });
   it('should still have some slices available', function() {
-    expect(cake.eat()).toBe(true);
+    expect(cake.eat()).toBeTruthy();
   });
+
+});
+
+describe('Candle Validation', function() {
+  var candle = new Candle();
+
+  it('should have a default color of red', function() {
+    expect(candle.color).toBe('#f00');
+  });
+
+  it('should be able to have a new color assigned to it', function() {
+    candle.color = '#ff0';
+    expect(candle.color).toBe('#ff0');
+  });
+
+  it('should return true when it\'s lit', function() {
+    expect(candle.light()).toBeTruthy();
+  });
+
 });
 
 describe('Spy Work', function() {
