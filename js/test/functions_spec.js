@@ -16,6 +16,6 @@ describe('Random Color', function() {
     });
 
     it('should return a random color', function() {
-        expect(randomColor()).toMatch(/#?[0-9A-Fa-f]{6}/g);
+        expect(randomColor()).toMatch(/#?[0-9A-Fa-f]{3,6}/g);
     });
 });

@@ -19,6 +19,8 @@ describe('Cake Validation', function() {
   });
   it('should still have some slices available', function() {
     expect(cake.eat()).toBeTruthy();
+    expect(cake.slices.length).toBeLessThan(count);
+    expect(cake.slices.length).toBeGreaterThan(0);
   });
 
 });
