@@ -192,7 +192,7 @@ module.exports = function(grunt) {
         urls: ['<%= project.url.dev %>'],
         reports: ['reports/yslow.txt']
       },
-      your_target: {
+      build: {
         files: []
       }
     },
@@ -247,6 +247,9 @@ module.exports = function(grunt) {
     },
 
     specificity: {
+      options: {
+        report: 'reports/css/cssspecificity.txt'
+      },
       src: ['css/<%= project.css.full %>']
     }
 
@@ -278,6 +281,7 @@ module.exports = function(grunt) {
     'concat',
     'uglify',
     'sass',
+    'specificity',
     'csslint',
     'cssmin',
     'imagemin',
@@ -320,17 +324,50 @@ module.exports = function(grunt) {
     var specificity = require('specificity');
     var verbose = grunt.verbose;
     var options = this.options();
-    var path = require("path");
+    var path = require('path');
     var absoluteFilePaths = options.absoluteFilePathsForFormatters || false;
-console.log(this.src());
-    for ( var rule in options ) {
-      this.filesSrc.forEach(function( filepath ) {
-        var file = grunt.file.read( filepath );
-        console.log(file);
-      });
+    var output = '';
+
+    var css = require('css');
+
+    report = options.report;
+    if (report === undefined) {
+      grunt.log.error('No report is defined');
+      return false;
     }
 
-    specificity.calculate('ul#nav li.active a');
+    this.filesSrc.forEach(function( filepath ) {
+      input = grunt.file.read(filepath);
+      obj = css.parse(input);
+      obj.stylesheet.rules.forEach(function(item) {
+
+        selectors = item.selectors;
+        if (typeof selectors !== 'undefined') {
+
+          specs = specificity.calculate(selectors.join(', '));
+          specs.forEach(function(spec) {
+            console.log(spec.specificity.split(',').map(
+              function(elt) {
+                return /^\d+$/.test(elt) ? parseInt(elt) : 0;
+              })
+              .reduce( function(a,b) {
+                return a+b
+              })
+            );
+
+            output += spec.selector.trim() + ': ' + spec.specificity + '\n';
+          });
+
+        }
+
+      });
+
+    });
+
+
+    grunt.log.writeln('Saving report to ' + report);
+    grunt.file.write(report, output);
+
   });
 
 };
