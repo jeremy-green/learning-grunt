@@ -43,6 +43,10 @@ function Cake(type, locale) {
 }
 
 Cake.prototype.setName = function(name) {
+    if (typeof name === 'undefined') {
+        return false;
+    }
+
     this.name = name;
     return this.name;
 };
