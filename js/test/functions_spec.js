@@ -1,6 +1,6 @@
 describe('Email Validation', function() {
     it('should return true if the email is valid', function() {
-        expect(handleEmail('jeremygreen1@gmail.com')).toBeTruthy();
+        expect(handleEmail('email@example.com')).toBeTruthy();
     });
     it('should return false if the email is not valid', function() {
         expect(handleEmail('str@str')).toBeFalsy();
