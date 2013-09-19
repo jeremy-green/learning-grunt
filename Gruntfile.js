@@ -321,6 +321,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerMultiTask('specificity', function() {
+
     var specificity = require('specificity');
     var verbose = grunt.verbose;
     var options = this.options();
@@ -346,6 +347,8 @@ module.exports = function(grunt) {
 
           specs = specificity.calculate(selectors.join(', '));
           specs.forEach(function(spec) {
+
+            /*
             console.log(spec.specificity.split(',').map(
               function(elt) {
                 return /^\d+$/.test(elt) ? parseInt(elt) : 0;
@@ -354,8 +357,10 @@ module.exports = function(grunt) {
                 return a+b
               })
             );
+            */
 
             output += spec.selector.trim() + ': ' + spec.specificity + '\n';
+
           });
 
         }
