@@ -127,8 +127,17 @@ module.exports = function(grunt) {
 
     screenshot: {
       options: {
-        //escape the colon
-        url: '<%= project.url.dev %>'
+        url: '<%= project.url.dev %>',
+        src: 'screenshot.js',
+        //when i get it running completely in node instead of commandline
+        viewports: [
+          {
+            width: 1024, height: 768
+          },
+          {
+            width: 320, height: 480
+          }
+        ]
       }
     },
 
@@ -273,6 +282,8 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-yuidoc');
 
+  grunt.loadTasks('tasks');
+
   // Default task.
   grunt.registerTask('default', 'watch');
   grunt.registerTask('build', [
@@ -289,90 +300,5 @@ module.exports = function(grunt) {
     //'pagespeed',
     'screenshot'
   ]);
-
-  //http://net.tutsplus.com/tutorials/html-css-techniques/developing-with-sass-and-chrome-devtools/
-  //to get sourcemaps working correctly
-  //sass -v 3.3.0.alpha.149
-  //compass -v 0.12.2
-  grunt.registerTask('sass', 'Custom SASS task to generate sourcemaps', function () {
-    var files = this.options().files;
-    if (files === undefined) {
-      grunt.log.warn('Files option is empty');
-      return false;
-    }
-    var done = this.async();
-    require('child_process').exec('sass --update --compass --scss --sourcemap ' + files.src + ':' + files.dest, function (err, stdout) {
-      grunt.log.write(stdout);
-      done(err);
-    });
-  });
-
-  grunt.registerTask('screenshot', 'Take screenshots of a specified URL', function () {
-    var url = this.options().url;
-    if (url === undefined) {
-      grunt.log.warn('URL option is empty.');
-      return false;
-    }
-    var done = this.async();
-    require('child_process').exec('phantomjs screenshot.js ' + url, function (err, stdout) {
-      grunt.log.write(stdout);
-      done(err);
-    });
-  });
-
-  grunt.registerMultiTask('specificity', function() {
-
-    var specificity = require('specificity');
-    var verbose = grunt.verbose;
-    var options = this.options();
-    var path = require('path');
-    var absoluteFilePaths = options.absoluteFilePathsForFormatters || false;
-    var output = '';
-
-    var css = require('css');
-
-    report = options.report;
-    if (report === undefined) {
-      grunt.log.error('No report is defined');
-      return false;
-    }
-
-    this.filesSrc.forEach(function( filepath ) {
-      input = grunt.file.read(filepath);
-      obj = css.parse(input);
-      obj.stylesheet.rules.forEach(function(item) {
-
-        selectors = item.selectors;
-        if (typeof selectors !== 'undefined') {
-
-          specs = specificity.calculate(selectors.join(', '));
-          specs.forEach(function(spec) {
-
-            /*
-            console.log(spec.specificity.split(',').map(
-              function(elt) {
-                return /^\d+$/.test(elt) ? parseInt(elt) : 0;
-              })
-              .reduce( function(a,b) {
-                return a+b
-              })
-            );
-            */
-
-            output += spec.selector.trim() + ': ' + spec.specificity + '\n';
-
-          });
-
-        }
-
-      });
-
-    });
-
-
-    grunt.log.writeln('Saving report to ' + report);
-    grunt.file.write(report, output);
-
-  });
 
 };
