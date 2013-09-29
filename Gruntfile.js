@@ -325,6 +325,7 @@ module.exports = function(grunt) {
     },
 
 
+
     asciify: {
       banner: {
         text: '<%= pkg.title || pkg.name %>',
@@ -370,13 +371,38 @@ module.exports = function(grunt) {
     },
 
 
-    sendmail: {
+
+    nodemailer: {
+
       options: {
-        email: "to@whatever.com",
-        subject: "whatup",
-        message: "hi"
+        transport: {
+          type: 'SMTP',
+          options: {
+            service: 'Gmail',
+            auth: {
+              user: '<%= prv.email.user %>',
+              pass: '<%= prv.email.pass %>'
+            },
+
+          }
+
+        },
+        from: '<%= prv.email.user %>',
+        recipients: [
+          {
+            email: '<%= prv.email.user %>'
+          }
+        ],
+        subject: 'A test e-mail',
+        text: 'Plain text message'
+      },
+
+      inline: {
+        html: '<body><h1>HTML custom message</h1></body>',
       }
+
     },
+
 
 
     browser_sync: {
@@ -391,6 +417,7 @@ module.exports = function(grunt) {
         host : "taoti.dev",
       }
     }
+
 
 
   });
@@ -424,6 +451,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-smushit');
 
   grunt.loadNpmTasks('grunt-browser-sync');
+
+  grunt.loadNpmTasks('grunt-nodemailer');
+
 
 
   grunt.loadTasks('tasks');
