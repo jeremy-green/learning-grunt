@@ -272,7 +272,53 @@ module.exports = function(grunt) {
         args: ['cc', 'all'],
         dest: '.'
       }
+    },
+
+
+
+    browserstack: {
+      dev: {
+        credentials: {
+          username: 'email@email.com',
+          password: 'password'
+        },
+        // optional tunnel configuration - if omitted a tunnel is not started
+        tunnel: {
+          // your BrowserStack API key
+          key: 'api_key ',
+          // a list of hostnames and ports to expose
+          hosts: [{
+            name: 'host',
+            port: 9000,
+            sslFlag: 0
+          }]
+        },
+        // required worker start configuration
+        start: {
+          // time to wait for workers to start running
+          //queueTimeout: QUEUE_TIMEOUT,
+          // default URL for started workers
+          url: 'url',
+          // default timeout for started workers
+          //timeout: TIMEOUT,
+          // list of browser types to start, as returned from the list function
+          browsers: [{
+            os: 'Windows7',
+            browser: 'chrome',
+            version: '15.0',
+            // override the default URL
+            url: 'URL',
+            // override the default worker timeout
+            //timeout: TIMEOUT
+          }]
+        }
+      }
     }
+
+
+
+
+
 
 
   });
@@ -297,6 +343,8 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-yuidoc');
 
+  grunt.loadNpmTasks('grunt-browserstack');
+
   grunt.loadTasks('tasks');
 
   // Default task.
@@ -317,3 +365,23 @@ module.exports = function(grunt) {
   ]);
 
 };
+
+
+/**
+ * Tasks to try:
+ * https://npmjs.org/package/grunt-tweet
+ * https://npmjs.org/package/grunt-usemin
+ * https://npmjs.org/package/grunt-smushit
+ * https://npmjs.org/package/grunt-ssh
+ * https://npmjs.org/package/grunt-selenium
+ * https://npmjs.org/package/grunt-scp
+ * https://npmjs.org/package/grunt-play
+ * https://npmjs.org/package/grunt-responsive-images
+ * https://npmjs.org/package/grunt-phplint
+ * https://npmjs.org/package/grunt-modernizr
+ * https://github.com/behrang/grunt-phantom
+ * https://npmjs.org/package/grunt-markdown-pdf
+ * https://github.com/rubenv/grunt-git
+ * https://npmjs.org/package/grunt-browserstack
+ * https://npmjs.org/package/grunt-asciify
+ */
