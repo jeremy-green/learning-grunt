@@ -4,9 +4,8 @@ module.exports = function(grunt) {
 
         var options = this.options(),
         url = options.url,
-        src = options.src;
-
-        console.log(options.viewports);
+        src = options.src,
+        viewports = options.viewports;
 
         if (url === undefined) {
           grunt.log.warn('URL option is empty.');

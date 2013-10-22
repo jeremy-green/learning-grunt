@@ -25,20 +25,18 @@ module.exports = function(grunt) {
           if (typeof selectors !== 'undefined') {
 
             specs = specificity.calculate(selectors.join(', '));
+            specArr = [];
+            var i = 0;
+
             specs.forEach(function(spec) {
 
-              /*
-              console.log(spec.specificity.split(',').map(
-                function(elt) {
-                  return /^\d+$/.test(elt) ? parseInt(elt) : 0;
-                })
-                .reduce( function(a,b) {
-                  return a+b
-                })
-              );
-              */
+              var weight = 1000;
+              output += spec.selector.trim() + ': ' + spec.specificity.split(',').map(function(elem) {
+                elem = elem * weight;
+                weight = weight/10;
+                return elem;
+              }) + '\n';
 
-              output += spec.selector.trim() + ': ' + spec.specificity + '\n';
 
             });
 

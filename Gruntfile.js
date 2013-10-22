@@ -1,4 +1,4 @@
-/*global module:false*/
+/  *global module:false*/
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -128,7 +128,10 @@ module.exports = function(grunt) {
     screenshot: {
       options: {
         url: '<%= project.url.dev %>',
+        path: 'screenshots',
+        format: 'jpg',
         src: 'screenshot.js',
+        name: Date.now().toString(),
         //when i get it running completely in node instead of commandline
         viewports: [
           {
@@ -255,15 +258,25 @@ module.exports = function(grunt) {
       }
     },
 
+
     specificity: {
       options: {
         report: 'reports/css/cssspecificity.txt'
       },
       src: ['css/<%= project.css.full %>']
+    },
+
+
+    drush: {
+      clear_cache: {
+        args: ['cc', 'all'],
+        dest: '.'
+      }
     }
 
 
   });
+
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -276,6 +289,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+
+  grunt.loadNpmTasks('grunt-drush');
 
   grunt.loadNpmTasks('grunt-yslow-test');
   grunt.loadNpmTasks('grunt-pagespeed');
