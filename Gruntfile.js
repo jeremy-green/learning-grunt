@@ -1,4 +1,4 @@
-/  *global module:false*/
+/*global module:false*/
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -30,21 +30,21 @@ module.exports = function(grunt) {
 
     // Metadata.
     banner: [
+      '/*!\n <%= asciify_banner %> \n*/',
+      '/*!',
       ' * <%= pkg.title || pkg.name %> - <%= grunt.template.today("yyyy-mm-dd") %>',
       ' * <%= pkg.description %>',
       ' * <%= pkg.homepage %>',
-      ' * Copyright <%= grunt.template.today("yyyy") %> - <%= pkg.author.name %> <%= pkg.author.url %>'
+      ' * Copyright <%= grunt.template.today("yyyy") %> - <%= pkg.author.name %> [<%= pkg.author.url %>]'
     ].join('\n'),
 
     jsbanner: [
-      '/*!',
       '<%= banner %>',
       ' * <%= project.js.min %> <%= pkg.version %>',
       ' */\n'
     ].join('\n'),
 
     cssbanner: [
-      '/*',
       '<%= banner %>',
       ' * <%= project.css.min %> <%= pkg.version %>',
       ' */'
@@ -252,7 +252,7 @@ module.exports = function(grunt) {
           expand: true,
           flatten: true,
           cwd: 'img/',
-          src: ['**/*.{png,jpg,gif}'],
+          src: ['lib/**/*.{png,jpg,gif}'],
           dest: 'img/dist/'
         }]
       }
@@ -276,20 +276,29 @@ module.exports = function(grunt) {
 
 
 
+    browserstack_list: {
+      dev: {
+        username: '<%= prv.browserstack.username %>',
+        password: '<%= prv.browserstack.password %>'
+      }
+    },
+
+
+
     browserstack: {
       dev: {
         credentials: {
-          username: 'email@email.com',
-          password: 'password'
+          username: '<%= prv.browserstack.username %>',
+          password: '<%= prv.browserstack.password %>'
         },
         // optional tunnel configuration - if omitted a tunnel is not started
         tunnel: {
           // your BrowserStack API key
-          key: 'api_key ',
+          key: '<%= prv.browserstack.key %>',
           // a list of hostnames and ports to expose
           hosts: [{
-            name: 'host',
-            port: 9000,
+            name: 'localhost',
+            port: 80,
             sslFlag: 0
           }]
         },
@@ -298,12 +307,12 @@ module.exports = function(grunt) {
           // time to wait for workers to start running
           //queueTimeout: QUEUE_TIMEOUT,
           // default URL for started workers
-          url: 'url',
+          //url: 'http://gcorr.dev',
           // default timeout for started workers
           //timeout: TIMEOUT,
           // list of browser types to start, as returned from the list function
           browsers: [{
-            os: 'Windows7',
+            os: 'win',
             browser: 'chrome',
             version: '15.0',
             // override the default URL
@@ -313,11 +322,52 @@ module.exports = function(grunt) {
           }]
         }
       }
+    },
+
+
+    asciify: {
+      banner: {
+        text: '<%= pkg.title || pkg.name %>',
+        options: {
+          font: 'banner',
+          log: true
+        }
+      }
+    },
+
+
+    tweet: {
+      options: {
+        consumer_key: '<%= prv.twitter.consumer_key %>',
+        consumer_secret: '<%= prv.twitter.consumer_secret %>',
+        access_token: '<%= prv.twitter.access_token %>',
+        access_token_secret: '<%= prv.twitter.access_token_secret %>'
+      },
+      release: {
+        options: {
+          crop: true
+        },
+        text: '* GRUNT *',
+        //url: 'URL'
+      }
+    },
+
+
+
+    play: {
+      fanfare: {
+        file: './sounds/0.mp3'
+      }
+    },
+
+
+
+    smushit: {
+      test: {
+        src: ['img/lib/**/*.png','img/lib/**/*.jpg'],
+        dest: 'img/dist'
+      }
     }
-
-
-
-
 
 
 
@@ -345,6 +395,13 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-browserstack');
 
+  grunt.loadNpmTasks('grunt-asciify');
+  grunt.loadNpmTasks('grunt-tweet');
+  grunt.loadNpmTasks('grunt-play');
+
+  grunt.loadNpmTasks('grunt-smushit');
+
+
   grunt.loadTasks('tasks');
 
   // Default task.
@@ -353,6 +410,7 @@ module.exports = function(grunt) {
     'jasmine',
     'jshint',
     'concat',
+    'asciify',
     'uglify',
     'sass',
     'specificity',
@@ -361,27 +419,34 @@ module.exports = function(grunt) {
     'imagemin',
     'yslow_test',
     //'pagespeed',
-    'screenshot'
+    'screenshot',
+    'tweet',
+    'play'
   ]);
 
 };
 
 
 /**
+ * Resources:
+ * http://www.thomasboyt.com/2013/09/01/maintainable-grunt.html
+ *
  * Tasks to try:
- * https://npmjs.org/package/grunt-tweet
+ * https://npmjs.org/package/grunt-tweet √
  * https://npmjs.org/package/grunt-usemin
- * https://npmjs.org/package/grunt-smushit
+ * https://npmjs.org/package/grunt-smushit √
  * https://npmjs.org/package/grunt-ssh
  * https://npmjs.org/package/grunt-selenium
  * https://npmjs.org/package/grunt-scp
- * https://npmjs.org/package/grunt-play
+ * https://npmjs.org/package/grunt-play √
  * https://npmjs.org/package/grunt-responsive-images
- * https://npmjs.org/package/grunt-phplint
+ * https://npmjs.org/package/grunt-phplint X -- sparse documentation
  * https://npmjs.org/package/grunt-modernizr
- * https://github.com/behrang/grunt-phantom
+ * https://github.com/behrang/grunt-phantom X -- sparse documentation
  * https://npmjs.org/package/grunt-markdown-pdf
  * https://github.com/rubenv/grunt-git
- * https://npmjs.org/package/grunt-browserstack
- * https://npmjs.org/package/grunt-asciify
+ * https://npmjs.org/package/grunt-browserstack √
+ * https://npmjs.org/package/grunt-asciify √
+ * https://github.com/sindresorhus/grunt-svgmin
+ * https://npmjs.org/package/grunt-autoprefixer
  */
