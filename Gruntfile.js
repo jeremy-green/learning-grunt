@@ -367,8 +367,16 @@ module.exports = function(grunt) {
         src: ['img/lib/**/*.png','img/lib/**/*.jpg'],
         dest: 'img/dist'
       }
-    }
+    },
 
+
+    sendmail: {
+      options: {
+        email: "to@whatever.com",
+        subject: "whatup",
+        message: "hi"
+      }
+    }
 
 
   });
