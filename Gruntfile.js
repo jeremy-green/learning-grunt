@@ -474,4 +474,6 @@ module.exports = function(grunt) {
  * https://npmjs.org/package/grunt-asciify √
  * https://github.com/sindresorhus/grunt-svgmin
  * https://npmjs.org/package/grunt-autoprefixer
+ *
+ * https://github.com/shakyShane/grunt-browser-sync
  */
