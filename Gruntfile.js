@@ -94,7 +94,7 @@ module.exports = function(grunt) {
 
     watch: {
       options: {
-        livereload: 9000
+        //livereload: 9000
       },
       css: {
         files: ['sass/*.scss'],
@@ -376,6 +376,20 @@ module.exports = function(grunt) {
         subject: "whatup",
         message: "hi"
       }
+    },
+
+
+    browser_sync: {
+      files: {
+        src : 'css/*.css'
+      },
+      options: {
+        watchTask: true,
+        server: {
+            baseDir: "."
+        },
+        host : "taoti.dev",
+      }
     }
 
 
@@ -409,11 +423,13 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-smushit');
 
+  grunt.loadNpmTasks('grunt-browser-sync');
+
 
   grunt.loadTasks('tasks');
 
   // Default task.
-  grunt.registerTask('default', 'watch');
+  grunt.registerTask('default', ['browser_sync', 'watch']);
   grunt.registerTask('build', [
     'jasmine',
     'jshint',
@@ -438,6 +454,7 @@ module.exports = function(grunt) {
 /**
  * Resources:
  * http://www.thomasboyt.com/2013/09/01/maintainable-grunt.html
+ * https://github.com/stefanpenner/ember-app-kit
  *
  * Tasks to try:
  * https://npmjs.org/package/grunt-tweet √
