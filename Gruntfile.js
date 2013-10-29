@@ -476,4 +476,5 @@ module.exports = function(grunt) {
  * https://npmjs.org/package/grunt-autoprefixer
  *
  * https://github.com/shakyShane/grunt-browser-sync
+ * https://github.com/karma-runner/karma
  */
