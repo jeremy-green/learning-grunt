@@ -380,17 +380,17 @@ module.exports = function(grunt) {
           options: {
             service: 'Gmail',
             auth: {
-              user: '<%= prv.email.user %>',
-              pass: '<%= prv.email.pass %>'
+              user: '<%= prv.email.username %>',
+              pass: '<%= prv.email.password %>'
             },
 
           }
 
         },
-        from: '<%= prv.email.user %>',
+        from: '<%= prv.email.username %>',
         recipients: [
           {
-            email: '<%= prv.email.user %>'
+            email: '<%= prv.email.username %>'
           }
         ],
         subject: 'A test e-mail',
@@ -485,6 +485,7 @@ module.exports = function(grunt) {
  * Resources:
  * http://www.thomasboyt.com/2013/09/01/maintainable-grunt.html
  * https://github.com/stefanpenner/ember-app-kit
+ * https://speakerdeck.com/addyosmani/automating-front-end-workflow
  *
  * Tasks to try:
  * https://npmjs.org/package/grunt-tweet √
@@ -507,4 +508,8 @@ module.exports = function(grunt) {
  *
  * https://github.com/shakyShane/grunt-browser-sync
  * https://github.com/karma-runner/karma
+ *
+ * https://github.com/sindresorhus/grunt-concurrent
+ * https://github.com/tschaub/grunt-newer
+ * https://github.com/addyosmani/grunt-uncss
  */
