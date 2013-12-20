@@ -79,16 +79,16 @@ input: 0,0,0,1
 button: 0,0,0,1
 select: 0,0,0,1
 button: 0,0,0,1
-html input[type="button"]: 0,0,10,2
-input[type="reset"]: 0,0,10,1
-input[type="submit"]: 0,0,10,1
+html input[type=button]: 0,0,10,2
+input[type=reset]: 0,0,10,1
+input[type=submit]: 0,0,10,1
 button[disabled]: 0,0,10,1
 html input[disabled]: 0,0,10,2
-input[type="checkbox"]: 0,0,10,1
-input[type="radio"]: 0,0,10,1
-input[type="search"]: 0,0,10,1
-input[type="search"]::-webkit-search-cancel-button: 0,0,10,2
-input[type="search"]::-webkit-search-decoration: 0,0,10,2
+input[type=checkbox]: 0,0,10,1
+input[type=radio]: 0,0,10,1
+input[type=search]: 0,0,10,1
+input[type=search]::-webkit-search-cancel-button: 0,0,10,2
+input[type=search]::-webkit-search-decoration: 0,0,10,2
 button::-moz-focus-inner: 0,0,0,2
 input::-moz-focus-inner: 0,0,0,2
 textarea: 0,0,0,1

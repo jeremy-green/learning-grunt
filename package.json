@@ -38,6 +38,9 @@
     "grunt-play": "~0.1.0",
     "grunt-smushit": "~1.1.2",
     "grunt-browser-sync": "~0.2.3",
-    "grunt-nodemailer": "~0.1.1"
+    "grunt-nodemailer": "~0.1.1",
+    "grunt-csscss": "~0.6.1",
+    "glob": "~3.2.7",
+    "matchdep": "~0.3.0"
   }
 }

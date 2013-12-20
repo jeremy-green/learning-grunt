@@ -15,6 +15,7 @@
 //@media screen and (min-width:63.75em) and (max-width:70.3125em)
 
 
+
 @import "compass";
 @import "breakpoint";
 @import "normalize";
@@ -34,6 +35,7 @@ $breakWide: min-width $large+1px;
 $bg_color: white;
 
 body {
+    content: test();
     text-rendering: optimizeLegibility;
 
     line-height: 1.5;
@@ -68,6 +70,49 @@ body {
     }
 }
 
+
+@function insert-nth($list, $index, $value) {
+  $result: null;
+
+  @if type-of($index) != number {
+    @warn "$index: #{quote($index)} is not a number for `insert-nth`.";
+  }
+
+  @else if $index < 1 {
+    @warn "List index 0 must be a non-zero integer for `insert-nth`";
+  }
+
+  @else if $index > length($list) {
+    @warn "List index is #{$index} but list is only #{length($list)} item long for `insert-nth'.";
+  }
+
+  @else {
+    $result: ();
+
+    @for $i from 1 through length($list) {
+      @if $i == $index {
+        $result: append($result, $value);
+      }
+
+      $result: append($result, nth($list, $i));
+    }
+  }
+
+  @return $result;
+}
+
+
+
+$z-list: ('body');
+@function above($item) {
+    $increment: 10;
+
+    //$z-list: append($z-list, $item, comma);
+    $z-list: insert-nth($z-list, index($z-list, $item) + 1, 'AMPERSAND!!!');
+    @debug $z-list;
+    @return index($z-list, $item) * $increment;
+}
+
 .main {
     width: 500px;
     height: 500px;
@@ -78,10 +123,47 @@ body {
         bottom: 1px solid green;
         top: 5px solid blue;
     }
+    content: above(body);
 }
 
-@if compass-env() == 'development' {
+/* @if compass-env() == 'development' {
     body {
         color: red;
     }
+} */
+
+
+
+
+/*
+$isotope-types: red, orange, burnt, yellow, brown;
+$isotope-colors: $red, $orange, $orange-dark, $yellow, $gray-dark;
+ */
+//-- this idea still needs some work
+$z-list: (10);
+@function next-z-index($over: true, $increment: 10) {
+
+    $current-z-index: nth($z-list, length($z-list));
+    $next-z-index: $increment * $current-z-index;
+    $z-list: append($z-list, $next-z-index, comma);
+
+    @if $over == true {
+        @return nth($z-list, length($z-list));
+    } @else {
+        @return nth($z-list, 1);
+    }
+
+    @return $next-z-index;
+
 }
+
+
+
+
+
+
+
+
+
+
+
