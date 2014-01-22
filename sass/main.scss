@@ -15,10 +15,26 @@
 //@media screen and (min-width:63.75em) and (max-width:70.3125em)
 
 
+/*
+#{theme_name()}
+#{theme_description()}
+*/
 
+$version: #{theme_version()};
+/*
+#{$version}
+ */
 @import "compass";
 @import "breakpoint";
 @import "normalize";
+@import 'SassyJSON';
+
+
+
+$map: ((a: (1 2 ( b : 1 )), b: ( #444444, false, ( a: 1, b: test ) ), c: (2 3 4 string)));
+
+@include json-encode($map, comment);
+
 
 $breakpoint-to-ems: true;
 
@@ -35,135 +51,81 @@ $breakWide: min-width $large+1px;
 $bg_color: white;
 
 body {
-    content: test();
-    text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
 
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
 
-    background: $bg_color;
+  background: $bg_color;
 
+  @if compass-env() == 'development' {
     &:before, &:after {
-        z-index: 999;
-        color: invert($bg_color);
-        position:fixed;
-        display: none;
-        display: block;
+      z-index: 999;
+      color: invert($bg_color);
+      position:fixed;
+      display: none;
+      display: block;
     }
 
     &:before {
-        left: 0;
-        top: 0;
+      left: 0;
+      top: 0;
 
-        //@include responsive(hd) { content: 'hd'; }
-        //@include breakpoint($breakRetina) { content: 'retina'; }
+      //@include responsive(hd) { content: 'hd'; }
+      //@include breakpoint($breakRetina) { content: 'retina'; }
     }
     &:after {
-        right: 0;
-        bottom: 0;
+      right: 0;
+      bottom: 0;
 
-        @include breakpoint($breakSmall) { content: 'handheld'; }
-        @include breakpoint($breakMedium) { content: 'tablet'; }
-        @include breakpoint($breakLarge) { content: 'desktop'; }
-        @include breakpoint($breakWide) { content: 'widescreen'; }
-    }
-}
-
-
-@function insert-nth($list, $index, $value) {
-  $result: null;
-
-  @if type-of($index) != number {
-    @warn "$index: #{quote($index)} is not a number for `insert-nth`.";
-  }
-
-  @else if $index < 1 {
-    @warn "List index 0 must be a non-zero integer for `insert-nth`";
-  }
-
-  @else if $index > length($list) {
-    @warn "List index is #{$index} but list is only #{length($list)} item long for `insert-nth'.";
-  }
-
-  @else {
-    $result: ();
-
-    @for $i from 1 through length($list) {
-      @if $i == $index {
-        $result: append($result, $value);
-      }
-
-      $result: append($result, nth($list, $i));
+      @include breakpoint($breakSmall) { content: 'handheld'; }
+      @include breakpoint($breakMedium) { content: 'tablet'; }
+      @include breakpoint($breakLarge) { content: 'desktop'; }
+      @include breakpoint($breakWide) { content: 'widescreen'; }
     }
   }
 
-  @return $result;
 }
 
-
-
-$z-list: ('body');
-@function above($item) {
-    $increment: 10;
-
-    //$z-list: append($z-list, $item, comma);
-    $z-list: insert-nth($z-list, index($z-list, $item) + 1, 'AMPERSAND!!!');
-    @debug $z-list;
-    @return index($z-list, $item) * $increment;
-}
 
 .main {
-    width: 500px;
-    height: 500px;
+  width: 500px;
+  height: 500px;
 
-    border: {
-        left: 5px solid black;
-        right: 1px solid red;
-        bottom: 1px solid green;
-        top: 5px solid blue;
-    }
-    content: above(body);
-}
-
-/* @if compass-env() == 'development' {
-    body {
-        color: red;
-    }
-} */
-
-
-
-
-/*
-$isotope-types: red, orange, burnt, yellow, brown;
-$isotope-colors: $red, $orange, $orange-dark, $yellow, $gray-dark;
- */
-//-- this idea still needs some work
-$z-list: (10);
-@function next-z-index($over: true, $increment: 10) {
-
-    $current-z-index: nth($z-list, length($z-list));
-    $next-z-index: $increment * $current-z-index;
-    $z-list: append($z-list, $next-z-index, comma);
-
-    @if $over == true {
-        @return nth($z-list, length($z-list));
-    } @else {
-        @return nth($z-list, 1);
-    }
-
-    @return $next-z-index;
-
+  border: {
+    left: 5px solid black;
+    right: 1px solid red;
+    bottom: 1px solid green;
+    top: 5px solid blue;
+  }
 }
 
 
 
 
 
+#{headers()} {
+  font-weight: bold;
+}
+
+$i:6;
+@while $i > 0 {
+  h#{$i} {
+    font-size: (8*8)-(8*$i);
+  }
+  .h#{$i} {
+    @extend h#{$i};
+  }
+  $i: $i - 1;
+}
 
 
-
+@if compass-env() == 'development' {
+  body {
+    color: black;
+  }
+}
 
 
 

@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<!-- <div class="main">Hello</div> -->
+<div class="main">Hello</div>
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':9000/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>

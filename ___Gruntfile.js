@@ -1,12 +1,47 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-  // Project configuration.
+  var config = {};
+  grunt.util._.extend(config, loadConfig('./tasks/options/'));
+
+  // Load project configuration
+  //grunt.initConfig(config);
   grunt.initConfig({
-    pkg: require('./package.json'),
+    watch: {
+      options: {
+        livereload: 9000
+      },
+      css: {
+        files: ['sass/*.scss'],
+        tasks: ['compass:dev'],
+      }
+    },
+    compass: {                  // Task
+      dist: {                   // Target
+        options: {              // Target options
+          sassDir: 'sass',
+          cssDir: 'css',
+          environment: 'production'
+        }
+      },
+      dev: {                    // Another target
+        options: {
+          sassDir: 'sass',
+          cssDir: 'css'
+        }
+      }
+    }
   });
 
-  grunt.loadTasks('grunt');
+  // Load all npm tasks through node-matchdep (fetches all tasks from package.json)
+  //require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+
+  // These plugins provide necessary tasks.
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadTasks('tasks');
+
+  grunt.loadNpmTasks('grunt-contrib-compass');
 
   // Default task.
   grunt.registerTask('default', ['watch']);
@@ -56,6 +91,7 @@ var loadConfig = function (path) {
  * http://www.thomasboyt.com/2013/09/01/maintainable-grunt.html
  * https://github.com/stefanpenner/ember-app-kit
  * https://speakerdeck.com/addyosmani/automating-front-end-workflow
+ * http://thenittygritty.co/shared-grunt-configuration
  *
  * Tasks to try:
  * https://npmjs.org/package/grunt-tweet √

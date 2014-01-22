@@ -41,6 +41,8 @@
     "grunt-nodemailer": "~0.1.1",
     "grunt-csscss": "~0.6.1",
     "glob": "~3.2.7",
-    "matchdep": "~0.3.0"
+    "matchdep": "~0.3.0",
+    "grunt-styleguide": "~0.2.14",
+    "kss": "~0.3.6"
   }
 }
