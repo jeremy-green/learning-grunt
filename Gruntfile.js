@@ -1,9 +1,8 @@
-/*global module:false*/
 module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: require('./package.json'),
+    pkg: require('./package')
   });
 
   grunt.loadTasks('grunt');

@@ -3,10 +3,10 @@ module.exports = function(grunt) {
   grunt.config('cssmin', {
     add_banner: {
       options: {
-        banner: '<%= cssbanner %>'
+        banner: '<%= banner %>'
       },
       files: {
-        'css/<%= project.css.min %>': ['css/<%= project.css.full %>']
+        'css/main.min.css': ['css/main.css']
       }
     }
   });
