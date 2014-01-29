@@ -1,12 +1,20 @@
-module.exports = function(grunt) {
+/**
+* Grunt configuration
+*/
+'use strict';
 
-  grunt.config('banner', [
+var pkg = require('../package');
+var prv = require('../private');
+
+module.exports = {
+
+  banner: [
     '/*!',
     ' * <%= pkg.title || pkg.name %> - <%= grunt.template.today("yyyy-mm-dd") %>',
     ' * <%= pkg.description %>',
     ' * <%= pkg.homepage %>',
     ' * Copyright <%= grunt.template.today("yyyy") %> - <%= pkg.author.name %> [<%= pkg.author.url %>]',
     '*/'
-  ].join('\n'));
+  ].join('\n')
 
 };

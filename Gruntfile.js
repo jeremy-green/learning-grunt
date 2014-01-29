@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
 
   // Project configuration.
-  grunt.initConfig({
-    pkg: require('./package')
-  });
+  /*grunt.initConfig({
+
+  });*/
 
   grunt.loadTasks('grunt');
 
