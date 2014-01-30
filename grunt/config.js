@@ -1,20 +1,29 @@
 /**
 * Grunt configuration
 */
-'use strict';
+module.exports = function(grunt) {
 
-var pkg = require('../package');
-var prv = require('../private');
+  grunt.config('banner', {
+    header: [
+      '/*!\n <%= asciify_banner %> \n*/',
+      '/*!',
+      ' * <%= pkg.title || pkg.name %> - <%= grunt.template.today("yyyy-mm-dd") %>',
+      ' * <%= pkg.description %>',
+      ' * <%= pkg.homepage %>',
+      ' * Copyright <%= grunt.template.today("yyyy") %> - <%= pkg.author.name %> [<%= pkg.author.url %>]',
+    ].join('\n'),
 
-module.exports = {
+    jsbanner: [
+      '<%= banner.header %>',
+      ' * main.min.js <%= pkg.version %>',
+      ' */\n'
+    ].join('\n'),
 
-  banner: [
-    '/*!',
-    ' * <%= pkg.title || pkg.name %> - <%= grunt.template.today("yyyy-mm-dd") %>',
-    ' * <%= pkg.description %>',
-    ' * <%= pkg.homepage %>',
-    ' * Copyright <%= grunt.template.today("yyyy") %> - <%= pkg.author.name %> [<%= pkg.author.url %>]',
-    '*/'
-  ].join('\n')
+    cssbanner: [
+      '<%= banner.header %>',
+      ' * main.min.css <%= pkg.version %>',
+      ' */'
+    ].join('\n'),
+  });
 
 };
