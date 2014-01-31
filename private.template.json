@@ -1,0 +1,18 @@
+{
+  "google": "",
+  "twitter": {
+    "consumer_key": "",
+    "consumer_secret": "",
+    "access_token": "",
+    "access_token_secret": ""
+  },
+  "browserstack": {
+    "username": "",
+    "password": "",
+    "key": ""
+  },
+  "email": {
+    "username": "",
+    "password": ""
+  }
+}

@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   grunt.config('screenshot', {
     options: {
-      url: 'localhost',
+      url: 'project.url.dev',
       path: 'screenshots',
       format: 'jpg',
       src: 'screenshot.js',

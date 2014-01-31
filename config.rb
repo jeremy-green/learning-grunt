@@ -3,7 +3,8 @@ require "breakpoint"
 require "compass-normalize"
 require "json"
 require "open-uri"
-require 'SassyJSON'
+require "SassyJSON"
+
 # Set this to the root of your project when deployed:
 # Drupal - http_path = "/sites/all/themes/#{THEME_FOLDER}/"
 THEME_DIR = File.dirname(__FILE__)

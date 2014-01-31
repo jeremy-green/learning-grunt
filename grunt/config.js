@@ -5,7 +5,6 @@ module.exports = function(grunt) {
 
   grunt.config('banner', {
     header: [
-      '/*!\n <%= asciify_banner %> \n*/',
       '/*!',
       ' * <%= pkg.title || pkg.name %> - <%= grunt.template.today("yyyy-mm-dd") %>',
       ' * <%= pkg.description %>',
@@ -24,6 +23,17 @@ module.exports = function(grunt) {
       ' * main.min.css <%= pkg.version %>',
       ' */'
     ].join('\n'),
+  });
+
+  grunt.config('project', {
+    url: {
+      prod: 'http://www.google.com',
+      dev: 'http://localhost'
+    }
+  });
+
+  grunt.config('reports',{
+    dir: 'reports'
   });
 
 };
