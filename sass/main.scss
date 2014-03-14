@@ -161,6 +161,8 @@ $i:6;
 //not sure if maps are the right tool here -- im leaning on lists still
 //http://sass-lang.com/documentation/Sass/Script/Functions.html#list-functions
 //http://sass-lang.com/documentation/file.SASS_REFERENCE.html#lists
+//http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
+//https://github.com/Team-Sass/SassyLists/blob/master/dist/_SassyLists.scss
 $_above: () !global;
 @function above($selector, $above-item: body, $multiplier: 10) {
   $above: $_above;
