@@ -41,13 +41,13 @@ relative_assets = true
 asset_cache_buster :none
 
 
-enviroment = :development
+environment = :development
 # enviroment = :production
 
 if environment == :production
   line_comments = false
   output_style = :compressed
-  sourcemap = false
+  #sourcemap = false
   debug = false
   disable_warnings = true
 else
