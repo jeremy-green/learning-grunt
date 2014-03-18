@@ -459,14 +459,19 @@ h1, .h1 {
   font-size: 56;
 }
 
-/* line 201, ../sass/main.scss */
+/* line 188, ../sass/main.scss */
+h2, .h2 {
+  z-index: 10;
+}
+
+/* line 191, ../sass/main.scss */
 h3, .h3 {
   z-index: 10;
 }
 
-/* line 204, ../sass/main.scss */
+/* line 194, ../sass/main.scss */
 h1, .h1 {
-  z-index: 30;
+  z-index: 10;
 }
 
 /*# sourceMappingURL=main.css.map */

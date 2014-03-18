@@ -166,31 +166,19 @@ $i:6;
 $_above: () !global;
 @function above($selector, $above-item: body, $multiplier: 10) {
   $above: $_above;
+  $dont: false;
   @if index($above, $selector) {
     @debug "ITEM:#{$selector} INDEX:" + index($above, $selector);
-    $above: join($above, $above-item);
+    $above: join($above-item, $above);
+    $dont: true;
   }
   @if index($above, $above-item) == false {
     $above: append($above, $above-item);
   }
-  $above: insert-nth($above, index($above, $above-item)+1, $selector);
-  @debug $above;
-
-
-
-  //if the selector isnt in there...append it ot the end of the list
-  /* @if index($above, $above-item) == false {
-    $above: append($above, $above-item);
-    $above: append($above, $selector);
-  } @else {
-    @debug "ABOVE ITEM: #{$above-item}";
-    @debug index($above, $above-item);
+  @if $dont == false {
+    $above: insert-nth($above, index($above, $above-item)+1, $selector);
   }
-  @if index($above, $selector) == false {
-    @debug "ABOVE ITEM: #{$above-item}";
-    //$above: join($above-item, $above);
-  }
-  @debug $above;*/
+  @debug index($above, $above-item) * $multiplier;
 
   $_above: $above !global;
   @return index($above, $above-item) * $multiplier;
@@ -198,7 +186,7 @@ $_above: () !global;
 
 //body, h1, h3, h2
 h2 {
-  //z-index: above(h2, h3);
+  z-index: above(h2, h3);
 }
 h3 {
   z-index: above(h3, h1);
