@@ -123,74 +123,131 @@ $i:6;
 
 
 
+@mixin padding-reset-left() {
+  padding-left: 0;
+}
+@mixin padding-reset-right() {
+  padding-right: 0;
+}
+@mixin padding-reset-top() {
+  padding-top: 0;
+}
+@mixin padding-reset-bottom() {
+  padding-bottom: 0;
+}
+@mixin padding-reset() {
+  @include padding-reset-top;
+  @include padding-reset-right;
+  @include padding-reset-bottom;
+  @include padding-reset-left;
+}
 
-
-
-
-@function insert-nth($list, $index, $value) {
-  $length: length($list);
-
-  @if type-of($index) != number {
-    @warn "List index #{$index} is not a number for `insert-nth`.";
-    @return false;
+$props: top right bottom left;
+@each $prop in $props {
+  %padding-reset-#{$prop} {
+    padding-#{$prop}: 0;
   }
+}
+%padding-reset {
+  padding: 0;
+}
 
-  @if $index < 1 {
-    @warn "List index #{$index} must be a non-zero integer for `insert-nth`";
-    @return false;
+@mixin margin-reset-left() {
+  margin-left: 0;
+}
+@mixin margin-reset-right() {
+  margin-right: 0;
+}
+@mixin margin-reset-top() {
+  margin-top: 0;
+}
+@mixin margin-reset-bottom() {
+  margin-bottom: 0;
+}
+@mixin margin-reset() {
+  @include margin-reset-top;
+  @include margin-reset-right;
+  @include margin-reset-bottom;
+  @include margin-reset-left;
+}
+
+$props: top right bottom left;
+@each $prop in $props {
+  %margin-reset-#{$prop} {
+    margin-#{$prop}: 0;
   }
+}
+%margin-reset {
+  margin: 0;
+}
 
-  @if $index > $length {
-    @return append($list, $value, list-separator($list));
-  }
+.main {
+  @include padding-reset;
+  @include margin-reset;
+}
 
-  $result: ();
+.sidebar {
+  @extend %margin-reset-left;
+  @extend %padding-reset;
+}
 
-  @for $i from 1 through $length {
-    @if $i == $index {
-      @if is-true($value) {
-        $result: append($result, $value, list-separator($list));
-      }
+
+
+
+
+
+
+@mixin font-weight($style: normal) {
+  $style: to_lower_case($style);
+  $weights: (
+    thin: 100,
+    ultralight: 100,
+    ultra-light: 100,
+    extralight: 200,
+    extra-light: 200,
+    light: 300,
+    normal: 400,
+    book: 400,
+    medium: 500,
+    demi: 600,
+    semibold: 600,
+    semi-bold: 600,
+    bold: 700,
+    extrabold: 800,
+    extra-bold: 800,
+    black: 900,
+    heavy: 900,
+    ultrabold: 900,
+    ultra-bold: 900
+  );
+  font-weight: if(map-has-key($weights, $style), map-get($weights, $style), map-get($weights, normal));
+}
+
+h1 {
+  @include font-weight();
+}
+
+
+
+@mixin zstack($items:(), $multiplier: 10) {
+  $i: 1;
+  @each $item in $items {
+    #{$item} {
+      z-index: $i*$multiplier;
     }
-
-    $result: append($result, nth($list, $i), list-separator($list));
+    $i: $i+1;
   }
-
-  @return $result;
 }
-//not sure if maps are the right tool here -- im leaning on lists still
-//http://sass-lang.com/documentation/Sass/Script/Functions.html#list-functions
-//http://sass-lang.com/documentation/file.SASS_REFERENCE.html#lists
-//http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
-//https://github.com/Team-Sass/SassyLists/blob/master/dist/_SassyLists.scss
-$_above: () !global;
-@function above($selector, $above-item: body, $multiplier: 10) {
-  $above: $_above;
-  $dont: false;
-  @if index($above, $selector) {
-    @debug "ITEM:#{$selector} INDEX:" + index($above, $selector);
-    $above: join($above-item, $above);
-    $dont: true;
-  }
-  @if index($above, $above-item) == false {
-    $above: append($above, $above-item);
-  }
-  @if $dont == false {
-    $above: insert-nth($above, index($above, $above-item)+1, $selector);
-  }
-  @debug index($above, $above-item) * $multiplier;
 
-  $_above: $above !global;
-  @return index($above, $above-item) * $multiplier;
-}
+//@include zstack(body h1 h2 h3);
 
 //body, h1, h3, h2
 h2 {
-  z-index: above(h2, h3);
+  //z-index: above(h2, h3);
 }
 h3 {
-  z-index: above(h3, h1);
+  //z-index: above(h3, h1);
 }
 h1 {
-  z-index: above(h1);
+  //z-index: above(h1);
 }
